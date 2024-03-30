@@ -1,4 +1,5 @@
 import numpy as np
+from matplotlib import pyplot as plt
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -8,7 +9,8 @@ from Train_Data import train
 from Test_Data import test
 from Dataset import CustomDataset
 
-from Variable.variable import debug
+from Variable.variable import er_8psk, debug
+from Display_Constellation import plot_er_ebn0_8psk, plot_constellation_Auto_Encoder_M_PSK, plot_er_ebn0
 
 k = 3
 size_M = np.power(2, k)
@@ -68,5 +70,28 @@ for epoch in range(epochs):
     print("Epochs : " + str(epoch + 1) + "/" + str(epochs))
     train(dataloader=train_dataloader, model=model, loss_fn=loss_fn, optim=optim, device=device)
     test(dataloader=test_dataloader, model=model, device=device)
+
+print("Comparison with M-PSK")
+
+with torch.no_grad():
+    x, _, _ = model(tensor.float())
+    if debug:
+        print(x)
+
+plot_constellation_Auto_Encoder_M_PSK(x, size_M)
+
+ebn0_range = np.arange(0, 15, 1)
+# I have only an example of error rates for an 8-PSK (see variable.py file)
+if size_M == 8:
+    ebnodb_8psk = np.linspace(0, 14, 15)
+    plot_er_ebn0_8psk(model, test_dataloader, ebn0_range, er_8psk, ebnodb_8psk, device)
+else:
+    plot_er_ebn0(model, test_dataloader, ebn0_range, device)
+    plt.xlabel("Eb/N0 (dB)")
+    plt.ylabel("Error Rate")
+    plt.title("Error Rates Auto-Encoder")
+    plt.grid(True)
+    plt.legend()
+    plt.show()
 
 # Possibility to save the model and reuse it, but it is not the goal of this project
