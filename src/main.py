@@ -34,6 +34,9 @@ tensor = torch.tensor(matrix)
 if debug:
     print(tensor)
 
+print("_________________________________________________________________________________________________________________________________________________________")
+print("Neural Network Model Information\n")
+
 # Device Init for the execution
 if torch.cuda.is_available():
     device = 'cuda'
@@ -64,7 +67,8 @@ test_dataset = CustomDataset(test_tensor)
 train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, pin_memory=True)
 test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-print("Learning & Testing Process")
+print("_________________________________________________________________________________________________________________________________________________________")
+print("Learning & Testing Process\n")
 
 for epoch in range(epochs):
     print("Epochs : " + str(epoch + 1) + "/" + str(epochs))
@@ -74,7 +78,8 @@ for epoch in range(epochs):
 # Uncomment next line if the final most probable value of the estimated message is needed
 # final_most_probable_value = test(dataloader=test_dataloader, model=model, device=device)
 
-print("Comparison with M-PSK")
+print("_________________________________________________________________________________________________________________________________________________________")
+print("Comparison with M-PSK\n")
 
 with torch.no_grad():
     x, _, _ = model(tensor.float())
