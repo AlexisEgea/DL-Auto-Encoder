@@ -41,7 +41,7 @@ To execute a .sh Script:
     1. Create the data `s` in `tensor`.
     2. Create the Auto-Encoder and launch the training and testing phase.
     3. Compare the constellation of the learned model and the M-PSK.
-    4. If `k=3`, display the linear comparison between the curve of the learned model and that of the M-PSK.
+    4. If `k=3`, display the linear representation between learned model and M-PSK.
 
 
 ### On Windows:
