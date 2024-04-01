@@ -18,3 +18,5 @@ echo "__________________________________________________________________________
 echo "Execution"
 
 python3 main.py
+
+read -s -p "Press Enter to finish the script..."
