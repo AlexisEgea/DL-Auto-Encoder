@@ -27,7 +27,6 @@ def test(dataloader, model, device):
     accuracy = 100 * correct // total
     print("Accuracy : " + str(accuracy) + "%")
 
-    # Calculer la valeur la plus fréquente dans l'ensemble des données
     final_most_probable_value = torch.mode(torch.tensor(most_probable_values))[0].item()
     print("Most Probable Value of the Estimated Message (ŝ)= " + str(final_most_probable_value))
     return final_most_probable_value
