@@ -71,6 +71,9 @@ for epoch in range(epochs):
     train(dataloader=train_dataloader, model=model, loss_fn=loss_fn, optim=optim, device=device)
     test(dataloader=test_dataloader, model=model, device=device)
 
+# Uncomment next line if the final most probable value of the estimated message is needed
+# final_most_probable_value = test(dataloader=test_dataloader, model=model, device=device)
+
 print("Comparison with M-PSK")
 
 with torch.no_grad():
@@ -94,4 +97,4 @@ else:
     plt.legend()
     plt.show()
 
-# Possibility to save the model and reuse it, but it is not the goal of this project
+# Possibility to save the model and reuse it with (ŝ), but it is not the goal of this project

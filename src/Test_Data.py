@@ -3,12 +3,14 @@ import torch
 
 from Variable.variable import debug
 
-""" Test & Calculate Accuracy of Auto-Encoder"""
+""" Test & Calculate Accuracy of Auto-Encoder
+    Returns the most probable value of the estimated message (ŝ) by the Auto-Encoder. """
 
 
 def test(dataloader, model, device):
     correct = 0
     total = 0
+    most_probable_values = []
     model.eval()
     with torch.no_grad():
         for inputs in dataloader:
@@ -19,8 +21,16 @@ def test(dataloader, model, device):
             total += inputs.size(0)
             correct += (predicted == inputs).sum().item()
 
+            most_probable_value = torch.mode(predicted)[0]
+            most_probable_values.append(most_probable_value.item())
+
     accuracy = 100 * correct // total
     print("Accuracy : " + str(accuracy) + "%")
+
+    # Calculer la valeur la plus fréquente dans l'ensemble des données
+    final_most_probable_value = torch.mode(torch.tensor(most_probable_values))[0].item()
+    print("Most Probable Value of the Estimated Message (ŝ)= " + str(final_most_probable_value))
+    return final_most_probable_value
 
 
 """ Calculate Error Rate ((Difference between Input & Predicted Output) / (Total Input)) of Auto-Encoder depending on 
